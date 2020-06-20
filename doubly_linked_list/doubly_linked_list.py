@@ -170,21 +170,13 @@ class DoublyLinkedList:
             return None
         if self.head == node:
             self.head = self.head.next
-            original_tail = self.tail
-            new_node = node
-            node.delete()
-            self.tail = new_node
-            self.tail.next = None
-            self.tail.prev = original_tail
-            original_tail.next = self.tail
-        else:
-            original_tail = self.tail
-            new_node = node
-            node.delete()
-            self.tail = new_node
-            self.tail.next = None
-            self.tail.prev = original_tail
-            original_tail.next = self.tail
+        original_tail = self.tail
+        new_node = node
+        node.delete()
+        self.tail = new_node
+        self.tail.next = None
+        self.tail.prev = original_tail
+        original_tail.next = self.tail
         
 
     """Removes a node from the list and handles cases where
