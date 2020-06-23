@@ -148,6 +148,10 @@ class DoublyLinkedList:
         #set head pointer to new node self.head = new_node
         #set new_node.prev to none and new_node.next to var_node
         #set var_node.prev to new_node
+        if self.head == node:
+            return None
+        if self.tail == node:
+            self.tail = self.tail.prev
         origional_head = self.head
         new_node = node
         node.delete()
