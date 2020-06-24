@@ -18,16 +18,28 @@ class BSTNode:
     # Insert the given value into the tree
     def insert(self, value):
         #get current value of node
+        current_value = self.value
         #compare to value to be inserted
+
         # if new value is less than current value
+        if value < current_value:
             #if left side is taken
+            if self.left is not None:
                 #make that node call insert
+                self.left.insert(value)    
             #if left side is not taken insert new node with value in left side
+            else:
+                self.left = BSTNode(value)
         #if new value is greater or equal to current value
-            #if right side is taken 
+        elif value >= current_value:
+            #if right side is taken
+            if self.right is not None: 
                 #make that node call insert
-            #if right side is not taken insert new node with value in right side 
-        pass
+                self.right.insert(value)
+            #if right side is not taken insert new node with value in right side
+            else:
+                self.right = BSTNode(value)
+        
 
     # Return True if the tree contains the value
     # False if it does not
@@ -37,7 +49,7 @@ class BSTNode:
         # compare the target to current value
         # if current value < target
         found = False
-        if self.value < target:
+        if self.value > target:
             # check the left subtree (self.left.contains(target))
             # if you cannot go left, return False
             if self.left is None:
@@ -45,7 +57,7 @@ class BSTNode:
             found = self.left.contains(target)
 
         # if current value >= target
-        if self.value >= target:
+        if self.value <= target:
             # check if right subtree contains target
             # if you cannot go right, return False
             if self.right is None:
@@ -58,17 +70,27 @@ class BSTNode:
     def get_max(self):
         #follow tree down entire right side until we find node with no right side
         #if self.right is None
+        if self.right is None:
             #return self.value
+            max_num = self.value
         #else call get_max function on self.right
-        pass
+        else:
+            max_num = self.right.get_max()
+        return max_num
+        
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
         #run function on current nodes value
+        fn(self.value)
         #check if there is a right node if so call for_each on that node
-        #check if there is a left value if so run for_each on that node
-        #if left or right has no node just pass???
-        pass
+        if self.right is not None:
+            self.right.for_each(fn)
+         #check if there is a left value if so run for_each on that node
+        if self.left is not None:
+            self.left.for_each(fn)
+       
+        
 
     # Part 2 -----------------------
 
