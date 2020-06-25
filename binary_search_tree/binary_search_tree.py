@@ -1,4 +1,5 @@
-
+from queue import Queue
+from stack import Stack
 """
 Binary search trees are a data structure that enforce an ordering over 
 the data they store. That ordering in turn makes it a lot more efficient 
@@ -111,38 +112,41 @@ class BSTNode:
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
-        # create a queue for nodes
-        queue = []
-        # add the first node to the queue
-        queue.append(node)
-        # while queue is not empty
-        while len(queue) != 0:
-            # remove the first node from the queue
-            poped_node = queue.pop(0)
-            # print the removed node 
-            print(poped_node.value)
-            # add all children into the queue
-            if poped_node.right is not None:
-                queue.append(poped_node.right)
-            if poped_node.left is not None:
-                queue.append(poped_node.left)
-            
-            
-            
-            
-            
+    # create a queue for nodes
+        queue = Queue()
+    # add the first node to the queue
+        queue.enqueue(node)
+    # while queue is not empty
+        while queue.__len__() != 0:
+        # remove the first node from the queue
+            removed = queue.dequeue()
+        # print the removed node 
+            print(removed.value)
+        # add all children into the queue
+            if removed.right is not None:
+                queue.enqueue(removed.right)
+            if removed.left is not None:
+                queue.enqueue(removed.left)
         
-
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
     def dft_print(self, node):
         # create a stack for nodes
+        stack = Stack()
         # add the first node to the stack
+        stack.push(node)
         # while the stack is not empty
+        while stack.__len__() != 0:
             # get the current node from the top of the stack
+            removed = stack.pop()
             # print that node
+            print(removed.value)
             # add all children to the stack
-        pass
+            if removed.right is not None:
+                stack.push(removed.right)
+            if removed.left is not None:
+                stack.push(removed.left)
+        
 
     # Stretch Goals -------------------------
     # Note: Research may be required
