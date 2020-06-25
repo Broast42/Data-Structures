@@ -153,8 +153,24 @@ class BSTNode:
 
     # Print Pre-order recursive DFT
     def pre_order_dft(self, node):
-        pass
+        #visit node and print out value
+        value = print(node.value)
+        #if there is a left node call pre_order_dft on that node
+        if node.left is not None:
+            node.left.pre_order_dft(node.left)
+        #if there is a right node call pre_order_dft on that node
+        if node.right is not None:
+            node.right.pre_order_dft(node.right)
+        return value
+        
 
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        pass
+        #if there is a left node call post_order_dft on that node
+        if node.left is not None:
+            node.left.post_order_dft(node.left)
+        #if there is a right node call post_order_dft on that node
+        if node.right is not None:
+            node.right.post_order_dft(node.right)
+        #print out value of node
+        return print(node.value)
