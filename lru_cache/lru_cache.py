@@ -1,3 +1,5 @@
+from doubly_linked_list import DoublyLinkedList
+
 class LRUCache:
     """
     Our LRUCache class keeps track of the max number of nodes it
@@ -7,7 +9,11 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        pass
+        self.limit = limit
+        self.current_entries = 0
+        self.cache = DoublyLinkedList()
+        self.storage = {}
+        
 
     """
     Retrieves the value associated with the given key. Also
@@ -17,7 +23,18 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+        #if key is in storage
+        if key in self.storage:
+            #grab node from storage[key]
+            node = self.storage[key]
+            #move node to front
+            self.cache.move_to_front(node)
+            #return node.value
+            return node.value
+        #if key dose not exist in storage
+        else:
+            #return None
+            return None
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -30,4 +47,36 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        #if key already exists update value and move to front
+        if key in self.storage:
+            #update node value in storage
+            self.storage[key].value = value
+            #grab node and move to front
+            self.cache.move_to_front(self.storage[key])
+        
+        #if cache is full delete oldest entry and add new item to front
+        elif self.current_entries == self.limit:
+            #delete key/value from storage
+            key_to_delete = self.cache.tail.key
+            del self.storage[key_to_delete]
+            #delete tail node from cache
+            self.cache.remove_from_tail()
+            #add new node to front
+            self.cache.add_to_head(key, value)
+            #add new key and value/node into storage
+            new_node = self.cache.head
+            new_storage = {key: new_node}
+            self.storage.update(new_storage)
+            
+
+        #otherwise insert new entry into cache at front
+        else:
+            #add new node to front of cache
+            self.cache.add_to_head(key, value)
+            #add key value/node to storage
+            new_node = self.cache.head
+            new_storage = {key: new_node}
+            self.storage.update(new_storage)
+            #add 1 to current_entries
+            self.current_entries += 1
+        
