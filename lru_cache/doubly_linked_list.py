@@ -1,7 +1,8 @@
 """Each ListNode holds a reference to its previous node
 as well as its next node in the List."""
 class ListNode:
-    def __init__(self, value, prev=None, next=None):
+    def __init__(self, key, value, prev=None, next=None):
+        self.key = key
         self.value = value
         self.prev = prev
         self.next = next
@@ -9,18 +10,18 @@ class ListNode:
     """Wrap the given value in a ListNode and insert it
     after this node. Note that this node could already
     have a next node it is point to."""
-    def insert_after(self, value):
+    def insert_after(self, key, value):
         current_next = self.next
-        self.next = ListNode(value, self, current_next)
+        self.next = ListNode(key, value, self, current_next)
         if current_next:
             current_next.prev = self.next
 
     """Wrap the given value in a ListNode and insert it
     before this node. Note that this node could already
     have a previous node it is point to."""
-    def insert_before(self, value):
+    def insert_before(self, key, value):
         current_prev = self.prev
-        self.prev = ListNode(value, current_prev, self)
+        self.prev = ListNode(key, value, current_prev, self)
         if current_prev:
             current_prev.next = self.prev
 
@@ -47,7 +48,7 @@ class DoublyLinkedList:
     """Wraps the given value in a ListNode and inserts it 
     as the new head of the list. Don't forget to handle 
     the old head node's previous pointer accordingly."""
-    def add_to_head(self, value):
+    def add_to_head(self, key, value):
         # add 1 to length
         #if head and tail is none create new node and set to both head and tail
         #else create new node using self.head insert before function
@@ -55,11 +56,11 @@ class DoublyLinkedList:
         
         self.length += 1
         if self.head is None and self.tail is None:
-            new_node = ListNode(value)
+            new_node = ListNode(key, value)
             self.head = new_node
             self.tail = new_node
         else:
-            self.head.insert_before(value)   
+            self.head.insert_before(key, value)   
             self.head = self.head.prev
        
 
@@ -95,7 +96,7 @@ class DoublyLinkedList:
     """Wraps the given value in a ListNode and inserts it 
     as the new tail of the list. Don't forget to handle 
     the old tail node's next pointer accordingly."""
-    def add_to_tail(self, value):
+    def add_to_tail(self, key, value):
         # add 1 to length
         #if head and tail is none create new node and set to both head and tail
         #else create new node using self.tail.insert_after(value)
@@ -103,11 +104,11 @@ class DoublyLinkedList:
         
         self.length += 1
         if self.tail is None and self.head is None:
-            new_node = ListNode(value)
+            new_node = ListNode(key, value)
             self.head = new_node
             self.tail = new_node
         else:
-            self.tail.insert_after(value)
+            self.tail.insert_after(key, value)
             self.tail = self.tail.next
         
 

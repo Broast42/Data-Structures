@@ -61,3 +61,15 @@ class LinkedList:
                 max_num = current_node.value
             current_node = current_node.next_node
         return max_num
+
+    def get_length(self):
+        if self.head is None:
+            return 0
+        
+        current_node = self.head
+        length = 0
+
+        while current_node is not None:
+            length +=1
+            current_node = current_node.next_node
+        return length
